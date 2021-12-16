@@ -1,0 +1,47 @@
+<div class="form-group row"  style=" margin: 0px 10% 0px 10%;">
+    <div >
+        <h1 class="mt-4">Upload your CSV File</h1>
+        <div style="margin: 10px 0px 10px 0px;">
+        <input style="font-size: 20px;" class="form-control mb-5" type="file" class="upload" (change)="changeListener($event)" accept=".csv">
+        </div>
+        <div>
+          <form [formGroup]="registrationForm"#f="ngForm" (ngSubmit)="onChercher(f.value)">
+              <div class="input-group b ">
+                <input formControlName="dp" class="form-control bt" placeholder="yyyy-mm-dd"
+                       name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                
+                  <button class="bi bi-calendar3" (click)="d.toggle() " type="button"></button>
+                
+              </div>
+              <button class="btn btn-light bt" (click)="selectToday()"type="button">sélectionner Aujourd'hui</button>
+              <button class="btn btn-primary bt" type="submit">Recherche</button>
+            </form> 
+
+          
+        <div *ngIf="hours">
+         <table  class="table table-hover">
+          <thead >
+          <tr>
+              <th>Id</th><th>noId</th><th>Nom</th><th>date</th><th>heure</th>
+          </tr>  
+          </thead> 
+          <tbody> 
+          <tr *ngFor="let E of hour._embedded.hours">
+              <td>{{E.id}}</td>
+              <td>{{E.noId}}</td>
+              <td>{{E.nom}}</td>
+              <td>{{E.date}}</td>
+              <td>{{E.heure}}</td>
+          </tr>
+        </tbody>
+        </table> 
+        <ul *ngIf='pages' class="nav nav-pills" style="display: flex;justify-content: center;">
+          <li [ngClass]="i==currentPage?'active':''" *ngFor="let p of pages; let i=index">
+          <a class="clickable" (click)="onPagesEmploye(i)">{{i}}</a> 
+          </li>
+      </ul>
+      <button  class="btn btn-primary bt bb"(click)="export()"><span class="fa-file-text"></span><strong> Export Csv</strong></button>
+    </div>
+      </div>
+</div>
+

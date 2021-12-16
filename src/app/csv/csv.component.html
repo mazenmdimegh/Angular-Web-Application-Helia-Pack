@@ -1,0 +1,21 @@
+<div class="form-group row"  style=" margin: 0px 10% 0px 10%;">
+    <div >
+        <h1 class="mt-4">Upload your CSV File</h1>
+        <div style="margin: 10px 0px 10px 0px;">
+        <input style="font-size: 20px;" class="form-control mb-5" type="file" class="upload" (change)="changeListener($event)" accept=".csv">
+        </div>
+        <table class="table table-hover">
+          <thead >
+            <tr>
+              <th *ngFor="let item of lines[0]; let i = index">{{item}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of linesR[0]; let i = index">
+              <td *ngFor="let itemm of lines[0]; let j = index">{{item[j]}}</td>
+              
+            </tr>
+          </tbody>
+        </table>
+      </div>
+</div>

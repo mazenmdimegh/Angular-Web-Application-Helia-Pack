@@ -1,0 +1,67 @@
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">liste des Employes</div>
+        <div class="panel-body">
+            <form #f="ngForm" (ngSubmit)="onChercher(f.value)">
+                <div class="form-group">
+                    <label >Keyword :   </label>
+                    <input type="text" name="Keyword" ngModel>
+                    <button type="submit" class="btn btn-primary bt"><span class="glyphicon glyphicon-search"></span> chercher</button>
+                </div>
+            </form>
+            <table *ngIf="employes" class="table table-striped">
+                <tr>
+                    <th>Id</th><th>Name</th><th>first_name</th><th>last_name</th><th>Age</th>
+                </tr>    
+                <tr *ngFor="let E of employes._embedded.employes">
+                    <td>{{E.id}}</td>
+                    <td>{{E.name}}</td>
+                    <td>{{E.first_name}}</td>
+                    <td>{{E.last_name}}</td>
+                    <td>{{E.age}}</td>
+                    <td><a class="clickable btn b" (click)="DeleteEmploye(E)">Delete</a><a class="clickable btn bt" (click)="UpdateEmploye(E)">update</a></td>
+                </tr>
+            </table>
+            <ul *ngIf='pages' class="nav nav-pills" style="display: flex;justify-content: center;">
+                <li [ngClass]="i==currentPage?'active':''" *ngFor="let p of pages; let i=index">
+                <a class="clickable" (click)="onPagesEmploye(i)">{{i}}</a> 
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div>
+    <form *ngIf="update" [formGroup]="registrationForm" style=" margin: 0px 25% 0px 25%;">
+      <div class="form-group row">
+        <label for="colFormLabel" class="col-sm-2 col-form-label">Username</label>
+        <div class="col-sm-10">
+          <input required minlength="4" type="text" formControlName="name"  class="form-control bt" name="name" placeholder="">
+        </div>
+      </div>
+        <div class="form-group row">
+          <label for="colFormLabelSm" class="col-sm-2 col-form-label ">First_name</label>
+          <div class="col-sm-10">
+            <input  type="text" formControlName="first_name" class="form-control bt" name="firstname" placeholder="">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="colFormLabel" class="col-sm-2 col-form-label">Last_name</label>
+          <div class="col-sm-10">
+            <input type="text" formControlName="last_name"  class="form-control bt" name="lastname" placeholder="">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="colFormLabelLg" class="col-sm-2 col-form-label ">Age</label>
+          <div class="col-sm-10">
+            <input type="number" formControlName="age"  class="form-control bt" name="Age" min="1" max="100">
+          </div>
+        </div>
+        
+        <div style="display: flex;justify-content: space-around;">
+            <button style="padding: 5px 50px 5px 50px;" type="button" (click)="Update()" class="btn btn-primary ">  Update  </button>
+            <button style="padding: 5px 50px 5px 50px;" type=" button" (click)="Annuler()" class="btn btn-primary">  Annuler  </button>
+        </div>   
+      </form>
+      <button  class="btn btn-primary bt bb"(click)="export()"><span class="fa-file-text"></span><strong> Export Csv</strong></button>
+    </div>
+

@@ -1,0 +1,67 @@
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">liste des produits</div>
+        <div class="panel-body">
+            <form #f="ngForm" (ngSubmit)="onChercher(f.value)">
+                <div class="form-group">
+                    <label >Keyword :   </label>
+                    <input type="text" name="Keyword" ngModel>
+                    <button type="submit" class="btn btn-primary bt"><span class="glyphicon glyphicon-search"></span> chercher</button>
+                </div>
+            </form>
+            <table *ngIf="Produits" class="table table-striped">
+              <tr>
+                  <th>Id</th><th>Name</th><th>Prix</th><th>Quantité</th>
+              </tr>    
+              <tr *ngFor="let E of Produits._embedded.produits">
+                  <td>{{E.id}}</td>
+                  <td>{{E.name}}</td>
+                  <td>{{E.prix}}</td>
+                  <td>{{E.quantite}}</td>
+                  <td><a class="clickable btn b" (click)="DeleteProduit(E)">Delete</a><a class="clickable btn bt" (click)="UpdateProduit(E)">update</a></td>
+              </tr>
+          </table>
+            <ul *ngIf='pages' class="nav nav-pills" style="display: flex;justify-content: center;">
+                <li [ngClass]="i==currentPage?'active':''" *ngFor="let p of pages; let i=index">
+                <a class="clickable" (click)="onPageProduits(i)">{{i}}</a> 
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div>
+    <form *ngIf="update" [formGroup]="registrationForm" style=" margin: 0px 40% 0px 15%;">
+      <div class="form-group row">
+        <label for="colFormLabel" class="col-sm-2 col-form-label">Name</label>
+        <div class="col-sm-10">
+          <input  type="text" formControlName="name"  class="form-control" name="name" placeholder="">
+        </div><div style="padding:5px;"*ngIf="n" class="alert alert-danger">
+          <strong>Name required</strong> 
+        </div>
+      </div>
+        
+       
+        <div class="form-group row">
+            <label for="colFormLabelLg" class="col-sm-2 col-form-label ">Prix</label>
+            <div class="col-sm-10">
+              <input type="number" formControlName="prix"  class="form-control form-control-lg" name="prix" min="1" max="100000">
+            </div><div style="padding:5px;"*ngIf="a" class="alert alert-danger">
+              <strong>Price required</strong> 
+            </div>
+          </div>
+        <div class="form-group row">
+          <label for="colFormLabelLg" class="col-sm-2 col-form-label ">Quantité</label>
+          <div class="col-sm-10">
+            <input type="number" formControlName="quantite"  class="form-control form-control-lg" name="quantite" min="1" max="100">
+          </div><div style="padding:5px;"*ngIf="a" class="alert alert-danger">
+            <strong>Quantité required</strong> 
+          </div>
+        </div>
+
+        <div style="display: flex;justify-content: space-around;">
+            <button style="padding: 5px 35px 5px 35px;" type="button" (click)="Update()" class="btn btn-primary bt">  Update  </button>
+            <button style="padding: 5px 50px 5px 50px;" type=" button" (click)="Annuler()" class="btn btn-primary bt" >  Annuler  </button>
+        </div>
+      </form>
+    <button  class="btn btn-primary bt bb"(click)="export()"><span class="fa-file-text"></span><strong> Export Csv</strong></button>
+</div>

@@ -1,0 +1,25 @@
+.b{
+    width: 65%;
+    font-size: 2rem;
+}
+.c{
+    
+    font-size: 11px;
+}
+.bt{
+    font-size: 15px;
+}
+.clickable{
+    cursor: pointer;
+}
+.bb {
+    cursor: pointer;
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 7px 14px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+  }
